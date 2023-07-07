@@ -74,13 +74,15 @@ class WebcamApp:
         self.update_video()
 
     def update_video(self):
-        _, frame = self.camera.read()
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-        image = Image.fromarray(frame)
-        photo = ImageTk.PhotoImage(image=image)
+        ret, frame = self.camera.read()
 
-        self.video_label.config(image=photo)
-        self.video_label.image = photo
+        if ret:
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            image = Image.fromarray(frame)
+            photo = ImageTk.PhotoImage(image=image)
+
+            self.video_label.config(image=photo)
+            self.video_label.image = photo
 
         if self.camera.isOpened():
             self.root.after(10, self.update_video)
