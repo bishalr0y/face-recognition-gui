@@ -56,12 +56,15 @@ class WebcamApp:
         self.image_counter = 1
         self.image_directory = ""
         self.script1_running = False
+        self.save_directory = "C:/Users/Bishal/OneDrive/Desktop/Face-Recognization/dataset/"  # Specify the desired save directory address here
 
     def start_webcam(self):
         self.image_directory = self.directory_entry.get().strip()
         if not self.image_directory:
             tk.messagebox.showwarning("Invalid Directory", "Please enter a valid directory name.")
             return
+
+        self.image_directory = os.path.join(self.save_directory, self.image_directory)
 
         if not os.path.exists(self.image_directory):
             os.makedirs(self.image_directory)
